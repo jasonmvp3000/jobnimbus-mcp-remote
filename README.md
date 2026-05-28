@@ -1,105 +1,76 @@
 # JobNimbus MCP Client
-
 **Connect Claude Desktop to your remote JobNimbus MCP server from any computer**
-
 This package provides an MCP (Model Context Protocol) client that connects Claude Desktop to a remote JobNimbus MCP server. No local installation or repository cloning required!
-
-## ✨ Características
-
-- 🔒 **Zero Storage Security**: API keys NUNCA almacenadas en el servidor
-- 🌐 **Multi-Cliente**: Soporta múltiples clientes simultáneos
-- ⚡ **Stateless**: Cada request es independiente
-- 🚦 **Rate Limiting**: Protección automática por cliente
-- 🛠️ **Extensible**: Agregar nuevas herramientas en ~10 minutos
-- 🔄 **CI/CD Automático**: Deploy con `git push`
-- 📊 **Monitoreo**: Health checks y logs sanitizados
-
-## 🎯 Arquitectura
-
+## ✨ Features
+- 🔒 **Zero Storage Security**: API keys are NEVER stored on the server
+- 🌐 **Multi-Client**: Supports multiple simultaneous clients
+- ⚡ **Stateless**: Each request is independent
+- 🚦 **Rate Limiting**: Automatic protection per client
+- 🛠️ **Extensible**: Add new tools in ~10 minutes
+- 🔄 **Automatic CI/CD**: Deploy with `git push`
+- 📊 **Monitoring**: Health checks and sanitized logs
+## 🎯 Architecture
 ```
 Claude Desktop (API Key) → Render.com Server → JobNimbus API
          ↓                         ↓
-   Local Config            Valida temporalmente
-   (Nunca sale)            (Nunca almacena)
+   Local Config            Validates temporarily
+   (Never leaves)          (Never stores)
 ```
-
-**Principio clave**: El servidor es un proxy stateless. Las API keys vienen del cliente en cada request y se limpian de memoria inmediatamente después de usarlas.
-
-## 📦 Instalación Rápida
-
-### 1. Clonar e Instalar
-
+**Key principle**: The server is a stateless proxy. API keys come from the client in each request and are cleared from memory immediately after use.
+## 📦 Quick Installation
+### 1. Clone and Install
 ```bash
 cd jobnimbus-mcp-remote
 npm install
 ```
-
-### 2. Configurar Entorno Local
-
+### 2. Configure Local Environment
 ```bash
 cp .env.example .env
 ```
-
-### 3. Ejecutar Localmente
-
+### 3. Run Locally
 ```bash
 npm run dev
 ```
-
-Visitar: http://localhost:3000/health
-
-### 4. Desplegar a Render.com
-
-Ver: [docs/SETUP.md](docs/SETUP.md) para guía completa de deployment.
-
-## 🔧 Herramientas Disponibles (88 TOTAL - Optimizado)
-
-### Core CRUD (27 herramientas)
-- **Validación**: `validate_api_key` - Validar API key
+Visit: http://localhost:3000/health
+### 4. Deploy to Render.com
+See: [docs/SETUP.md](docs/SETUP.md) for the complete deployment guide.
+## 🔧 Available Tools (88 TOTAL - Optimized)
+### Core CRUD (27 tools)
+- **Validation**: `validate_api_key` - Validate API key
 - **Jobs (7)**: `get_jobs`, `search_jobs`, `search_jobs_enhanced`, `get_job`, `search_job_notes`, `get_job_tasks`
 - **Status Search (13)**: `search_jobs_by_status`, `get_leads`, `get_pending_approval`, `get_lost_jobs`, `get_in_progress`, `get_completed`, `get_paid_closed`, `get_estimating`, `get_signed_contracts`, `get_scheduled`, `get_appointments`, `get_invoiced`, `get_deposits`
-- **Contactos (3)**: `get_contacts`, `search_contacts`, `create_contact`
-- **Otros (3)**: `get_estimates`, `get_activities`, `create_activity`, `get_calendar_activities`, `get_timeline_data`
-
-### Analytics (35 herramientas)
+- **Contacts (3)**: `get_contacts`, `search_contacts`, `create_contact`
+- **Other (3)**: `get_estimates`, `get_activities`, `create_activity`, `get_calendar_activities`, `get_timeline_data`
+### Analytics (35 tools)
 - **Insurance & Retail (3)**: `analyze_insurance_pipeline`, `analyze_retail_pipeline`, `analyze_services_repair_pipeline`
 - **Financial (6)**: `get_sales_rep_performance`, `get_performance_metrics`, `get_automated_followup`, `get_revenue_report`, `get_margin_analysis`, `analyze_revenue_leakage`, `get_profitability_dashboard`
 - **Performance (2)**: `get_seasonal_trends`, `get_pipeline_forecasting`
 - **Territory (5)**: `get_job_summary`, `get_optimal_door_routes`, `get_territory_heat_maps`, `get_jobs_distribution`, `get_door_knocking_scripts_by_area`, `get_seasonal_door_timing`, `get_estimates_with_addresses`
 - **Productivity (9)**: `get_activities_analytics`, `get_task_management_analytics`, `get_user_productivity_analytics`, `get_lead_scoring_analytics`, `get_communication_analytics`, `get_conversion_funnel_analytics`, `get_resource_allocation_analytics`, `get_customer_satisfaction_analytics`, `get_time_tracking_analytics`
 - **Business (8)**: `get_project_management_analytics`, `get_marketing_campaign_analytics`, `get_financial_forecasting_analytics`, `get_customer_segmentation_analytics`, `get_operational_efficiency_analytics`, `get_sales_velocity_analytics`, `get_competitive_analysis_analytics`
-
-### Materials (11 herramientas)
+### Materials (11 tools)
 - **Tracking**: `get_estimate_materials`, `analyze_material_costs`, `get_material_usage_report`, `get_material_inventory_insights`
 - **Calculations**: `calculate_roofing_materials`, `calculate_siding_materials`, `estimate_materials_from_job`, `calculate_waste_factors`, `optimize_material_orders`, `get_material_specifications`, `compare_material_alternatives`
-
-### Attachments & Business Intelligence (6 herramientas)
+### Attachments & Business Intelligence (6 tools)
 - **Attachments (4)**: `get_attachments`, `get_file_by_id`, `analyze_job_attachments`, `get_job_attachments_distribution`
 - **Business (1)**: `search_insurance_jobs`
 - **Invoices (1)**: `get_invoices`
-
-### System (2 herramientas)
+### System (2 tools)
 - `get_tasks`, `get_users`
-
-### 📦 Herramientas Archivadas/Experimentales
-Se removieron 14 herramientas obsoletas o no funcionales para optimizar rendimiento:
-- Ver `/src/tools/archived/` - 11 herramientas sin valor operativo
-- Ver `/src/tools/experimental/` - 7 herramientas con endpoints no verificados
-
-**Beneficios**: ~40% reducción en uso de tokens, descubrimiento de herramientas más rápido.
-**Agregar más**: Ver [docs/ADDING_TOOLS.md](docs/ADDING_TOOLS.md)
-
-## 💻 Configuración MCP
-
-### Opción 1: Claude Code (Recomendado)
-
-1. **Configurar variables de entorno**:
+### 📦 Archived/Experimental Tools
+14 obsolete or non-functional tools were removed to optimize performance:
+- See `/src/tools/archived/` - 11 tools with no operational value
+- See `/src/tools/experimental/` - 7 tools with unverified endpoints
+**Benefits**: ~40% reduction in token usage, faster tool discovery.
+**Adding more**: See [docs/ADDING_TOOLS.md](docs/ADDING_TOOLS.md)
+## 💻 MCP Configuration
+### Option 1: Claude Code (Recommended)
+1. **Configure environment variables**:
 ```bash
 cp .env.mcp.example .env.mcp
-# Edita .env.mcp con tus API keys
+# Edit .env.mcp with your API keys
 ```
-
-2. **Cargar variables** (PowerShell):
+2. **Load variables** (PowerShell):
 ```powershell
 Get-Content .env.mcp | ForEach-Object {
     if ($_ -match '^([^=]+)=(.+)$') {
@@ -107,139 +78,99 @@ Get-Content .env.mcp | ForEach-Object {
     }
 }
 ```
-
-3. **Verificar**:
+3. **Verify**:
 ```
 /mcp
 ```
-
-Ver guía completa: [MCP_SETUP.md](MCP_SETUP.md)
-
-### Opción 2: Claude Desktop
-
-Ubicación: `%APPDATA%/Claude/claude_desktop_config.json`
-
+See full guide: [MCP_SETUP.md](MCP_SETUP.md)
+### Option 2: Claude Desktop
+Location: `%APPDATA%/Claude/claude_desktop_config.json`
 ```json
 {
   "mcpServers": {
     "jobnimbus-stamford": {
       "command": "node",
-      "args": ["C:/ruta/a/examples/mcp-client.js"],
+      "args": ["C:/path/to/examples/mcp-client.js"],
       "env": {
-        "MCP_SERVER_URL": "https://tu-servidor.onrender.com",
-        "JOBNIMBUS_API_KEY": "tu_api_key_stamford",
+        "MCP_SERVER_URL": "https://your-server.onrender.com",
+        "JOBNIMBUS_API_KEY": "your_api_key_stamford",
         "JOBNIMBUS_INSTANCE": "stamford"
       }
     }
   }
 }
 ```
-
-Ver ejemplo completo: [examples/claude-desktop-config.json](examples/claude-desktop-config.json)
-
-## 📚 Documentación
-
-- [📖 Setup Guide](docs/SETUP.md) - Instalación y deployment
-- [🔌 MCP Setup](MCP_SETUP.md) - Configuración de MCP para Claude Code
-- [🏗️ Arquitectura](docs/ARCHITECTURE.md) - Diseño técnico completo
-- [🛠️ Agregar Herramientas](docs/ADDING_TOOLS.md) - Cómo crear nuevas tools
-
-## 🔐 Seguridad
-
-### ✅ Lo que HACE el servidor:
-
-- Extrae API key del header `X-JobNimbus-Api-Key`
-- Valida formato del API key
-- Usa el API key para llamar a JobNimbus
-- Limpia el API key de memoria inmediatamente
-
-### ❌ Lo que NO HACE el servidor:
-
-- Almacenar API keys en base de datos
-- Guardar API keys en archivos
-- Loggear API keys
-- Cachear API keys
-- Compartir API keys entre clientes
-
-### Verificación de Seguridad
-
+See full example: [examples/claude-desktop-config.json](examples/claude-desktop-config.json)
+## 📚 Documentation
+- [📖 Setup Guide](docs/SETUP.md) - Installation and deployment
+- [🔌 MCP Setup](MCP_SETUP.md) - MCP configuration for Claude Code
+- [🏗️ Architecture](docs/ARCHITECTURE.md) - Complete technical design
+- [🛠️ Adding Tools](docs/ADDING_TOOLS.md) - How to create new tools
+## 🔐 Security
+### ✅ What the server DOES:
+- Extracts API key from the `X-JobNimbus-Api-Key` header
+- Validates API key format
+- Uses the API key to call JobNimbus
+- Clears the API key from memory immediately
+### ❌ What the server does NOT do:
+- Store API keys in a database
+- Save API keys to files
+- Log API keys
+- Cache API keys
+- Share API keys between clients
+### Security Verification
 ```bash
-# Buscar si hay API keys hardcodeados (debe retornar vacío)
+# Check for hardcoded API keys (should return empty)
 grep -r "api[_-]key.*=" src/
-
-# Audit de dependencias
+# Dependency audit
 npm audit
-
-# Tests de seguridad en CI
+# Security tests in CI
 npm run lint
 ```
-
 ## 🚀 Deployment
-
-### Automático (Recomendado)
-
+### Automatic (Recommended)
 ```bash
 git add .
-git commit -m "feat: nueva funcionalidad"
+git commit -m "feat: new feature"
 git push origin main
 ```
-
-GitHub Actions despliega automáticamente a Render.com.
-
+GitHub Actions deploys automatically to Render.com.
 ### Manual
-
 ```bash
 npm run build
 npm run start:prod
 ```
-
 ## 🧪 Testing
-
 ### Health Check
-
 ```bash
-curl https://tu-servidor.onrender.com/health
+curl https://your-server.onrender.com/health
 ```
-
-### Listar Herramientas
-
+### List Tools
 ```bash
-curl -X POST https://tu-servidor.onrender.com/mcp/tools/list \
-  -H "X-JobNimbus-Api-Key: tu_api_key" \
+curl -X POST https://your-server.onrender.com/mcp/tools/list \
+  -H "X-JobNimbus-Api-Key: your_api_key" \
   -H "Content-Type: application/json"
 ```
-
-### Ejecutar Herramienta
-
+### Execute Tool
 ```bash
-curl -X POST https://tu-servidor.onrender.com/mcp/tools/call \
-  -H "X-JobNimbus-Api-Key: tu_api_key" \
+curl -X POST https://your-server.onrender.com/mcp/tools/call \
+  -H "X-JobNimbus-Api-Key: your_api_key" \
   -H "Content-Type: application/json" \
   -d '{"name":"get_jobs","arguments":{"size":10}}'
 ```
-
-## 📊 Monitoreo
-
+## 📊 Monitoring
 ### Health Check Endpoint
-
-- `GET /health` - Estado del servidor
-
+- `GET /health` - Server status
 ### Rate Limit Headers
-
 ```
 X-RateLimit-Limit: 60
 X-RateLimit-Remaining: 45
 X-RateLimit-Reset: 1234567890
 ```
-
 ### Logs
-
-Todos los logs están sanitizados - no incluyen API keys ni información sensible.
-
-## 🛠️ Desarrollo
-
-### Estructura del Proyecto
-
+All logs are sanitized — they do not include API keys or sensitive information.
+## 🛠️ Development
+### Project Structure
 ```
 jobnimbus-mcp-remote/
 ├── src/
@@ -247,62 +178,50 @@ jobnimbus-mcp-remote/
 │   ├── middleware/     # Auth, rate limiting
 │   ├── tools/          # MCP tools
 │   ├── services/       # JobNimbus client
-│   ├── config/         # Configuración
+│   ├── config/         # Configuration
 │   ├── types/          # TypeScript types
 │   └── utils/          # Logger, errors
 ├── .github/workflows/  # CI/CD
-├── docs/               # Documentación
-├── scripts/            # Scripts útiles
-└── examples/           # Ejemplos de uso
+├── docs/               # Documentation
+├── scripts/            # Utility scripts
+└── examples/           # Usage examples
 ```
-
-### Comandos Disponibles
-
+### Available Commands
 ```bash
-npm run dev          # Desarrollo con hot reload
-npm run build        # Compilar TypeScript
-npm run start        # Ejecutar producción
+npm run dev          # Development with hot reload
+npm run build        # Compile TypeScript
+npm run start        # Run production
 npm run lint         # Linter
-npm run type-check   # Verificar tipos
+npm run type-check   # Type checking
 npm test             # Tests
 ```
-
-## 🤝 Contribuir
-
-1. Fork el proyecto
-2. Crea una rama: `git checkout -b feature/nueva-funcionalidad`
-3. Commit: `git commit -m 'feat: agregar nueva funcionalidad'`
-4. Push: `git push origin feature/nueva-funcionalidad`
-5. Abre un Pull Request
-
-## 📄 Licencia
-
+## 🤝 Contributing
+1. Fork the project
+2. Create a branch: `git checkout -b feature/new-feature`
+3. Commit: `git commit -m 'feat: add new feature'`
+4. Push: `git push origin feature/new-feature`
+5. Open a Pull Request
+## 📄 License
 MIT
-
-## 🆘 Soporte
-
-- **Documentación**: Ver carpeta `docs/`
+## 🆘 Support
+- **Documentation**: See the `docs/` folder
 - **Issues**: GitHub Issues
 - **Logs**: Render.com dashboard
-
-## ✅ Estado del Proyecto
-
-- [x] Estructura base
-- [x] Servidor Express con MCP
-- [x] Middleware de seguridad
+## ✅ Project Status
+- [x] Base structure
+- [x] Express server with MCP
+- [x] Security middleware
 - [x] JobNimbus API client
-- [x] Sistema de tools extensible
-- [x] **88 herramientas CONSOLIDADAS** ✅ (14 archivadas/experimentales)
+- [x] Extensible tools system
+- [x] **88 CONSOLIDATED tools** ✅ (14 archived/experimental)
 - [x] GitHub Actions CI/CD
 - [x] Render.com config
-- [x] Documentación completa
-- [x] Cliente para Claude Desktop
-- [x] Factory pattern para extensibilidad
-- [x] Redis cache integration para optimización
-- [x] Consolidación de herramientas (enero 2025)
-- [ ] Tests unitarios (próximo)
-- [ ] Métricas y monitoring avanzado (opcional)
-
+- [x] Complete documentation
+- [x] Claude Desktop client
+- [x] Factory pattern for extensibility
+- [x] Redis cache integration for optimization
+- [x] Tool consolidation (January 2025)
+- [ ] Unit tests (next)
+- [ ] Advanced metrics and monitoring (optional)
 ---
-
-**Hecho con ❤️ para acceso remoto seguro a JobNimbus desde Claude Desktop**
+**Made with ❤️ for secure remote access to JobNimbus from Claude Desktop**
